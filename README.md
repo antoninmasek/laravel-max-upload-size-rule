@@ -1,4 +1,4 @@
-# Easily validate uploaded file size against `upload_max_filesize` in php.ini
+# Easily validate uploaded file size against `upload_max_filesize` php.ini setting
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v//laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages//laravel-max-upload-size-rule)
 [![Total Downloads](https://img.shields.io/packagist/dt//laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages//laravel-max-upload-size-rule)
