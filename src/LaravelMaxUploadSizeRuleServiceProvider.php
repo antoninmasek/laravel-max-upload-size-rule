@@ -20,7 +20,7 @@ class LaravelMaxUploadSizeRuleServiceProvider extends PackageServiceProvider
         /**
          * This method is here in order to mock calls to `ini_get` when testing.
          */
-        App::macro('getPhpIniValue', function(string $key): false|string {
+        App::macro('getPhpIniValue', function (string $key): false|string {
             return ini_get($key);
         });
 
