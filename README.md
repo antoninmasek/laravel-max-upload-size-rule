@@ -19,6 +19,7 @@ composer require antoninmasek/laravel-max-upload-size-rule
 
 ```php
 Validator::make(['file', $file], [Rule::file()->maxUploadSize()]);
+Validator::make(['file', $file], [new MaxUploadSizeRule()]);
 ```
 
 ## Testing
