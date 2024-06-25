@@ -4,7 +4,6 @@ namespace AntoninMasek\LaravelMaxUploadSizeRule;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AntoninMasek\LaravelMaxUploadSizeRule\Commands\LaravelMaxUploadSizeRuleCommand;
 
 class LaravelMaxUploadSizeRuleServiceProvider extends PackageServiceProvider
 {

@@ -2,9 +2,9 @@
 
 namespace AntoninMasek\LaravelMaxUploadSizeRule\Tests;
 
+use AntoninMasek\LaravelMaxUploadSizeRule\LaravelMaxUploadSizeRuleServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use AntoninMasek\LaravelMaxUploadSizeRule\LaravelMaxUploadSizeRuleServiceProvider;
 
 class TestCase extends Orchestra
 {
