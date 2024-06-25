@@ -1,12 +1,13 @@
 <?php
 
 use AntoninMasek\LaravelMaxUploadSizeRule\MaxUploadSizeRule;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\Rule as RuleContract;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-function passes(int $fileSize, ValidationRule|Rule $rule): bool
+function passes(int $fileSize, ValidationRule|RuleContract $rule): bool
 {
     return Validator::make(
         ['file' => UploadedFile::fake()->create('foo.txt', $fileSize)],
@@ -15,13 +16,17 @@ function passes(int $fileSize, ValidationRule|Rule $rule): bool
 }
 
 it('can validate based on upload max file size limit', function () {
-    $rule = Mockery::mock(MaxUploadSizeRule::class)->makePartial();
-    $rule
-        ->shouldAllowMockingProtectedMethods()
-        ->shouldReceive('getPhpIniValue')
+    App::shouldReceive('getPhpIniValue')
         ->with('upload_max_filesize')
         ->andReturn(1024);
 
+    $rule = new MaxUploadSizeRule();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+
+    $rule = Rule::file()->maxUploadSize();
     expect(passes(1025, $rule))->toBeFalse()
         ->and(passes(1024, $rule))->toBeTrue()
         ->and(passes(1023, $rule))->toBeTrue()
@@ -29,21 +34,21 @@ it('can validate based on upload max file size limit', function () {
 });
 
 it('can validate based on post max size limit', function () {
-    $rule = Mockery::mock(MaxUploadSizeRule::class)
-        ->makePartial();
-
-    $rule->shouldAllowMockingProtectedMethods();
-
-    $rule
-        ->shouldReceive('getPhpIniValue')
+    App::shouldReceive('getPhpIniValue')
         ->with('upload_max_filesize')
         ->andReturn(-1);
 
-    $rule
-        ->shouldReceive('getPhpIniValue')
+    App::shouldReceive('getPhpIniValue')
         ->with('post_max_size')
         ->andReturn(1024);
 
+    $rule = new MaxUploadSizeRule();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+
+    $rule = Rule::file()->maxUploadSize();
     expect(passes(1025, $rule))->toBeFalse()
         ->and(passes(1024, $rule))->toBeTrue()
         ->and(passes(1023, $rule))->toBeTrue()
@@ -51,21 +56,21 @@ it('can validate based on post max size limit', function () {
 });
 
 it('can validate without size limit', function () {
-    $rule = Mockery::mock(MaxUploadSizeRule::class)
-        ->makePartial();
-
-    $rule->shouldAllowMockingProtectedMethods();
-
-    $rule
-        ->shouldReceive('getPhpIniValue')
+    App::shouldReceive('getPhpIniValue')
         ->with('upload_max_filesize')
         ->andReturn(-1);
 
-    $rule
-        ->shouldReceive('getPhpIniValue')
+    App::shouldReceive('getPhpIniValue')
         ->with('post_max_size')
         ->andReturn(-1);
 
+    $rule = new MaxUploadSizeRule();
+    expect(passes(1025, $rule))->toBeTrue()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+
+    $rule = Rule::file()->maxUploadSize();
     expect(passes(1025, $rule))->toBeTrue()
         ->and(passes(1024, $rule))->toBeTrue()
         ->and(passes(1023, $rule))->toBeTrue()
