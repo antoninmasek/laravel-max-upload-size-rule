@@ -15,11 +15,6 @@ class LaravelMaxUploadSizeRuleServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('laravel-max-upload-size-rule')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-max-upload-size-rule_table')
-            ->hasCommand(LaravelMaxUploadSizeRuleCommand::class);
+        $package->name('laravel-max-upload-size-rule');
     }
 }

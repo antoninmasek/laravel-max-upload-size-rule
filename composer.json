@@ -1,12 +1,12 @@
 {
-    "name": "/laravel-max-upload-size-rule",
-    "description": "This is my package laravel-max-upload-size-rule",
+    "name": "antoninmasek/laravel-max-upload-size-rule",
+    "description": "Adds Rule::file()->maxUploadSize() validation rule, which will validate filesize against `upload_max_filesize` php.ini setting",
     "keywords": [
         "Antonin Masek",
         "laravel",
         "laravel-max-upload-size-rule"
     ],
-    "homepage": "https://github.com//laravel-max-upload-size-rule",
+    "homepage": "https://github.com/antoninmasek/laravel-max-upload-size-rule",
     "license": "MIT",
     "authors": [
         {
@@ -31,30 +31,15 @@
     },
     "autoload": {
         "psr-4": {
-            "AntoninMasek\\LaravelMaxUploadSizeRule\\": "src/",
-            "AntoninMasek\\LaravelMaxUploadSizeRule\\Database\\Factories\\": "database/factories/"
+            "AntoninMasek\\LaravelMaxUploadSizeRule\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AntoninMasek\\LaravelMaxUploadSizeRule\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "AntoninMasek\\LaravelMaxUploadSizeRule\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-laravel-max-upload-size-rule --ansi",
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": [
-            "@composer run prepare",
-            "@php vendor/bin/testbench workbench:build --ansi"
-        ],
-        "start": [
-            "Composer\\Config::disableProcessTimeout",
-            "@composer run build",
-            "@php vendor/bin/testbench serve"
-        ],
-        "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
@@ -70,10 +55,7 @@
         "laravel": {
             "providers": [
                 "AntoninMasek\\LaravelMaxUploadSizeRule\\LaravelMaxUploadSizeRuleServiceProvider"
-            ],
-            "aliases": {
-                "LaravelMaxUploadSizeRule": "AntoninMasek\\LaravelMaxUploadSizeRule\\Facades\\LaravelMaxUploadSizeRule"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
