@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace AntoninMasek\LaravelMaxUploadSizeRule;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use AntoninMasek\LaravelMaxUploadSizeRule\Commands\LaravelMaxUploadSizeRuleCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class LaravelMaxUploadSizeRuleServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('laravel-max-upload-size-rule')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_laravel-max-upload-size-rule_table')
+            ->hasCommand(LaravelMaxUploadSizeRuleCommand::class);
     }
 }
