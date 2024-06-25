@@ -1,7 +1,7 @@
 # Easily validate uploaded file size against `upload_max_filesize` php.ini setting
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v//laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages//laravel-max-upload-size-rule)
-[![Total Downloads](https://img.shields.io/packagist/dt//laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages//laravel-max-upload-size-rule)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/antoninmasek/laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages/antoninmasek/laravel-max-upload-size-rule)
+[![Total Downloads](https://img.shields.io/packagist/dt/antoninmasek/laravel-max-upload-size-rule.svg?style=flat-square)](https://packagist.org/packages/antoninmasek/laravel-max-upload-size-rule)
 
 On a few projects I've worked on, I noticed, that quite often we want to allow the max file size to be the same as our setting inside php.ini. Over time the value inside php.ini might change due to different requirements, but the validation rules usually stay the same until some user hits the rule and it prevents them from proceeding.
 
