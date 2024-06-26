@@ -7,10 +7,15 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-function passes(int $fileSize, ValidationRule|RuleContract $rule): bool
+function toBytes(int $kiloBytes): int
+{
+    return $kiloBytes * 1024;
+}
+
+function passes(int $kiloBytes, ValidationRule|RuleContract $rule): bool
 {
     return Validator::make(
-        ['file' => UploadedFile::fake()->create('foo.txt', $fileSize)],
+        ['file' => UploadedFile::fake()->create('foo.txt', $kiloBytes)],
         ['file' => $rule],
     )->passes();
 }
@@ -18,7 +23,7 @@ function passes(int $fileSize, ValidationRule|RuleContract $rule): bool
 it('can validate based on upload max file size limit', function () {
     App::shouldReceive('getPhpIniValue')
         ->with('upload_max_filesize')
-        ->andReturn(1024);
+        ->andReturn(toBytes(1024));
 
     $rule = new MaxUploadSizeRule();
     expect(passes(1025, $rule))->toBeFalse()
@@ -40,7 +45,7 @@ it('can validate based on post max size limit', function () {
 
     App::shouldReceive('getPhpIniValue')
         ->with('post_max_size')
-        ->andReturn(1024);
+        ->andReturn(toBytes(1024));
 
     $rule = new MaxUploadSizeRule();
     expect(passes(1025, $rule))->toBeFalse()

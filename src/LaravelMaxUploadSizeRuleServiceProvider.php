@@ -25,14 +25,14 @@ class LaravelMaxUploadSizeRuleServiceProvider extends PackageServiceProvider
         });
 
         File::macro('maxUploadSize', function (): Rule {
-            $uploadMaxSize = ini_parse_quantity(App::getPhpIniValue('upload_max_filesize'));
-            if ($uploadMaxSize > 0) {
-                return $this->max($uploadMaxSize);
+            $uploadMaxSizeInBytes = ini_parse_quantity(App::getPhpIniValue('upload_max_filesize'));
+            if ($uploadMaxSizeInBytes > 0) {
+                return $this->max($uploadMaxSizeInBytes / 1024);
             }
 
-            $postMaxSize = ini_parse_quantity(App::getPhpIniValue('post_max_size'));
-            if ($postMaxSize > 0) {
-                return $this->max($postMaxSize);
+            $postMaxSizeInBytes = ini_parse_quantity(App::getPhpIniValue('post_max_size'));
+            if ($postMaxSizeInBytes > 0) {
+                return $this->max($postMaxSizeInBytes / 1024);
             }
 
             return $this;
