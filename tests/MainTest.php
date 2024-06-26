@@ -38,6 +38,24 @@ it('can validate based on upload max file size limit', function () {
         ->and(passes(512, $rule))->toBeTrue();
 });
 
+it('can validate based on upload max file size limit using shorthand notation', function () {
+    App::shouldReceive('getPhpIniValue')
+        ->with('upload_max_filesize')
+        ->andReturn('1024k');
+
+    $rule = new MaxUploadSizeRule();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+
+    $rule = Rule::file()->maxUploadSize();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+});
+
 it('can validate based on post max size limit', function () {
     App::shouldReceive('getPhpIniValue')
         ->with('upload_max_filesize')
@@ -46,6 +64,28 @@ it('can validate based on post max size limit', function () {
     App::shouldReceive('getPhpIniValue')
         ->with('post_max_size')
         ->andReturn(toBytes(1024));
+
+    $rule = new MaxUploadSizeRule();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+
+    $rule = Rule::file()->maxUploadSize();
+    expect(passes(1025, $rule))->toBeFalse()
+        ->and(passes(1024, $rule))->toBeTrue()
+        ->and(passes(1023, $rule))->toBeTrue()
+        ->and(passes(512, $rule))->toBeTrue();
+});
+
+it('can validate based on post max size limit using shorthand notation', function () {
+    App::shouldReceive('getPhpIniValue')
+        ->with('upload_max_filesize')
+        ->andReturn(-1);
+
+    App::shouldReceive('getPhpIniValue')
+        ->with('post_max_size')
+        ->andReturn('1024k');
 
     $rule = new MaxUploadSizeRule();
     expect(passes(1025, $rule))->toBeFalse()
